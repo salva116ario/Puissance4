@@ -1,16 +1,26 @@
+import java.util.Scanner;
+
 public class Puissance4 {
 
+  static Scanner saisie;
+  static int nbCol = 7, nbLig =6;
+  static int[][] grille = new int[nbCol][nbLig];
+  static String[] joueur = new String[2];
+
 public static void main(String[] args) {
-    int col = 7;
-    int lig = 6;
-    int[][] grille = new int[col][lig];
-    for (int i=0; i < lig; i++) {
-      for (int j=0; j < col; j++) {
-        System.out.print("|"+ j + "," + i);
-      }
-      System.out.println("|");
-    }
+  saisie = new Scanner(System.in);
+  initJoueurs();
+
+
 }
+
+  public static void initJoueurs() {
+    for (int i=0; i<2; i++) {
+      System.out.println("Joueur " + (i+1) + " entrez votre prénom : ");
+      joueur[i] = saisie.nextLine();
+    }
+    System.out.println(joueur[0] + " / " + joueur[1]);
+  }
 
 
 }
