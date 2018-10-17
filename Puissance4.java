@@ -32,7 +32,7 @@ public static void main(String[] args) {
           joueurEnCours =( joueurEnCours == 1) ? 2 : 1;
         } while(!partieFinie);
 
-      }  
+      }
 
 
 
@@ -137,6 +137,40 @@ public static boolean verifVertic() {
     }
   }
   return false;
+}
+
+public static boolean verifDiag() {
+  int colTest = colEnCours,ligneTest = ligneEnCours;
+  int compteurJeton = 1;
+  boolean continueWhile;
+
+  while (colTest>=0  && ligneTest>=0 && continueWhile) {
+    colTest --;
+    ligneTest --;
+    if (grille[colTest][ligneTest] == joueurEnCours) {
+      compteurJeton++;
+    } else {
+      continueWhile = false;
+    }
+    continueWhile = true;
+  while (colTest<=nbCol && ligneTest<nbLig && continueWhile ) {
+    colTest ++;
+    ligneTest ++;
+    if (grille[colTest][ligneTest] == joueurEnCours) {
+      compteurJeton++;
+      if (compteurJeton == nbJetonsNecessaires) {
+        return true;
+      }
+    } else {
+      continueWhile = false;
+    }
+  }
+
+    return false;
+  }
+
+
+
 }
 
 
