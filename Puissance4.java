@@ -7,6 +7,8 @@
 
 
 import java.util.Scanner;
+import java.util.InputMismatchException;
+import java.lang.ArrayIndexOutOfBoundsException;
 
 public class Puissance4 {
 
@@ -102,19 +104,50 @@ public class Puissance4 {
 
 
 	public static void choixColonne() {
-		int colChoix;
+		int colChoix = 0;
 		boolean choixValide;
 
 		do {
-			System.out.println("\n" + joueur[joueurEnCours] + " (" + jeton[joueurEnCours]
-					+ ") , veuillez choisir votre colonne : ");
-			colChoix = saisie.nextInt();
-			choixValide = true;
-			if (grille[colChoix][nbLig - 1] != 0) {
-				System.out.println("Erreur colonne pleine.");
+			try {
+				System.out.println("\n" + joueur[joueurEnCours] + " (" + jeton[joueurEnCours]
+						+ ") , veuillez choisir votre colonne : ");
+				colChoix = saisie.nextInt();
+
+				choixValide = grille[colChoix][nbLig - 1] == 0;
+				System.out.println(choixValide);
+			} catch (InputMismatchException e) {
+					saisie.next();
+					System.out.println("Choix invalide. Tapez un nombre !");
+					choixValide = false;
+			} catch (ArrayIndexOutOfBoundsException e) {				 
+				System.out.println("Choix invalide. Tapez un nombre entre 0 et " + (nbCol-1));
 				choixValide = false;
 			}
 		} while (choixValide == false);
+
+
+
+		// do {
+		//
+		//         try {
+		//
+		//             menuQuantity = sc.nextInt();
+		//
+		//             responseIsGood = true;
+		//
+		//         } catch (InputMismatchException e) {
+		//
+		//             sc.next();
+		//
+		//             System.out.println("Vous devez saisir un nombre, correspondant au nombre de menus souhaités");
+		//
+		//             responseIsGood = false;
+		//
+		//         }
+		//
+		//     } while (!responseIsGood);
+
+
 
 		// Cette boucle va enregistrer la position du jeton dans la grille
 		// La colonne est celle indiquée par le joueur.
