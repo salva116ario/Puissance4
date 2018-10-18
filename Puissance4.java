@@ -38,16 +38,15 @@ public class Puissance4 {
 			if (verifHoriz()) {
 				finPartie();
 			}
-
-			if (verifVertic()) {
+			else if (verifVertic()) {
 				finPartie();
 			}
 
-			if (verifDiag()) {
+			else if (verifDiag()) {
 				finPartie();
 			}
 
-			if (verifGrillePleine()) {
+			else if (verifGrillePleine()) {
 				partieNul();
 			}
 			// Les tests de vérification n'ont pas désigné de vainqueur ou une partie nulle :
@@ -119,34 +118,11 @@ public class Puissance4 {
 					saisie.next();
 					System.out.println("Choix invalide. Tapez un nombre !");
 					choixValide = false;
-			} catch (ArrayIndexOutOfBoundsException e) {				 
+			} catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("Choix invalide. Tapez un nombre entre 0 et " + (nbCol-1));
 				choixValide = false;
 			}
 		} while (choixValide == false);
-
-
-
-		// do {
-		//
-		//         try {
-		//
-		//             menuQuantity = sc.nextInt();
-		//
-		//             responseIsGood = true;
-		//
-		//         } catch (InputMismatchException e) {
-		//
-		//             sc.next();
-		//
-		//             System.out.println("Vous devez saisir un nombre, correspondant au nombre de menus souhaités");
-		//
-		//             responseIsGood = false;
-		//
-		//         }
-		//
-		//     } while (!responseIsGood);
-
 
 
 		// Cette boucle va enregistrer la position du jeton dans la grille
