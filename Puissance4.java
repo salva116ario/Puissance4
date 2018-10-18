@@ -1,3 +1,11 @@
+/* Jeu de Puissance 4 - Simplon LPS 3
+ * Ce jeu se joue à deux joueurs sur une grille de hauteur 6 et de largeur 7.
+ * Les joueurs laissent tomber chacun leur tour un jeton dans une colonne.
+ * Lorsqu’un joueur aligne 4 jetons de sa couleur (en ligne ou en diagonale), il a gagné.
+ * Il peut arriver qu’aucun joueur ne parvienne à aligner 4 jetons, donnant lieu à un match nul.
+ */
+
+
 import java.util.Scanner;
 
 public class Puissance4 {
@@ -7,10 +15,10 @@ public class Puissance4 {
 	static int nbJetonsNecessaires = 4;
 	static int joueurEnCours = 1, ligneEnCours = 0, colEnCours = 0;
 	static int[][] grille = new int[nbCol][nbLig];
-	static String[] joueur = new String[3];
+	static String[] joueur = new String[3]; // la variable joueur[0] ne sera pas utilisée...
+	static char[] jeton = { ' ', 'O', '@' };
 	static int compteur = 0;
 	static boolean partieFinie = false;
-	static char[] jeton = { ' ', 'O', '@' };
 
 
 	public static void main(String[] args) {
@@ -40,7 +48,8 @@ public class Puissance4 {
 			if (verifGrillePleine()) {
 				partieNul();
 			}
-
+			// Les tests de vérification n'ont pas désigné de vainqueur ou une partie nulle :
+			// On change de joueur, et la partie continue
 			joueurEnCours = (joueurEnCours == 1) ? 2 : 1;
 
 		} while (!partieFinie);
@@ -107,6 +116,9 @@ public class Puissance4 {
 			}
 		} while (choixValide == false);
 
+		// Cette boucle va enregistrer la position du jeton dans la grille
+		// La colonne est celle indiquée par le joueur.
+		// La ligne correspondra à la première case disponible dans cette colonne.
 		for (int i = 0; i < nbLig; i++) {
 			if (grille[colChoix][i] == 0) {
 				grille[colChoix][i] = joueurEnCours;
@@ -166,7 +178,8 @@ public class Puissance4 {
 		int compteurJeton = 1;
 		boolean continueWhile = true;
 
-		// verif première diagonale
+		// verif première diagonale : / du bas à gauche du tableau vers le haut à droite du tableau
+
 		while (colTest > 0 && ligneTest > 0 && continueWhile) {
 			colTest--;
 			ligneTest--;
@@ -196,7 +209,7 @@ public class Puissance4 {
 		}
 
 
-		// vérif deuxième diagonale
+		// verif deuxième diagonale : \ du haut à gauche du tableau vers le bas à droite du tableau
 		compteurJeton = 1;
 		continueWhile = true;
 		colTest = colEnCours;
