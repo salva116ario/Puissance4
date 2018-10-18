@@ -67,7 +67,7 @@ public class Puissance4 {
 	public static void affichageGrille() {
 
 		compteur++;
-		System.out.println("\nTOUR NUMERO " + compteur);
+		System.out.println("\nTOUR NUMERO " + compteur + "\n");
 
 		for (int i = nbLig - 1; i >= 0; i--) {
 
@@ -232,7 +232,7 @@ public class Puissance4 {
 
 
 	public static boolean verifGrillePleine() {
-		return compteur == nbLig * nbCol;
+		return compteur == (nbLig * nbCol + 1);
 	}
 
 

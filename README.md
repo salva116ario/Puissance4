@@ -17,22 +17,21 @@ LIGNE 0   0,0   1,0   2,0   3,0   4,0   5,0   6,0
           COL0  COL1  COL2  COL3  COL4  COL5  COL6
 
 _______________________________________________________________________
+
 ## INIT DU JEU      
-1. INIT GRILLE DE JEU + CREER DEUX JOUEURS
+A. INIT GRILLE DE JEU + CREER DEUX JOUEURS
    Saisie prénoms : joueur1 / joueur2
-2. TIRAGE AU SORT : qui démarre la partie ?
+B. TIRAGE AU SORT : qui démarre la partie ?
    On attribue un SYMBOLE de jeton à chaque joueur
 __________________________________________________________________________
 
 
 ## UN TOUR DE JEU LAMBDA
 1. AFFICHER GRILLE
-2. AFFICHE LE NOM DU JOUEUR ET ON LUI DEMANCHE SON CHOIX DE COLONNE
-3. VERIFIE SI UNE PLACE EST LIBRE DANS LA COLONNE
+2. AFFICHER LE NOM DU JOUEUR ET LUI DEMANDER SON CHOIX DE COLONNE
+3. VERIFIER SI UNE PLACE EST LIBRE DANS LA COLONNE
    SI NON - > REVENIR A (2)
 4. ON PLACE LE JETON DANS LA COLONNE
-##
-
   ## VERIFICATIONS FIN DE PARTIE
 5. VERIF HORIZONTALE
 6. VERIF VERTICALE
