@@ -8,7 +8,6 @@
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import java.lang.ArrayIndexOutOfBoundsException;
 
 public class Puissance4 {
 
@@ -27,33 +26,7 @@ public class Puissance4 {
 
 		saisie = new Scanner(System.in);
 
-		initJoueurs();
-		tirageAuSort();
-		affichageGrille();
-
-		do {
-			choixColonne();
-			affichageGrille();
-
-			if (verifHoriz()) {
-				finPartie();
-			}
-			else if (verifVertic()) {
-				finPartie();
-			}
-
-			else if (verifDiag()) {
-				finPartie();
-			}
-
-			else if (verifGrillePleine()) {
-				partieNul();
-			}
-			// Les tests de vérification n'ont pas désigné de vainqueur ou une partie nulle :
-			// On change de joueur, et la partie continue
-			joueurEnCours = (joueurEnCours == 1) ? 2 : 1;
-
-		} while (!partieFinie);
+		partieJeu();
 
 	}
 
@@ -107,35 +80,46 @@ public class Puissance4 {
 		boolean choixValide;
 
 		do {
-			try {
-				System.out.println("\n" + joueur[joueurEnCours] + " (" + jeton[joueurEnCours]
-						+ ") , veuillez choisir votre colonne : ");
-				colChoix = saisie.nextInt();
-
-				choixValide = grille[colChoix][nbLig - 1] == 0;
-				System.out.println(choixValide);
-			} catch (InputMismatchException e) {
-					saisie.next();
-					System.out.println("Choix invalide. Tapez un nombre !");
+			choixValide = true;
+		  try {
+		    System.out.println("\n" + joueur[joueurEnCours] + " (" + jeton[joueurEnCours]
+		        + ") , veuillez choisir votre colonne : ");
+		    colChoix = saisie.nextInt();
+				if (colChoix<0 || colChoix>nbCol) {
+					System.out.println("Choix invalide recommencez");
 					choixValide = false;
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Choix invalide. Tapez un nombre entre 0 et " + (nbCol-1));
-				choixValide = false;
+				}
+		  } catch (InputMismatchException e) {
+		      saisie.next();
+		      System.out.println("Choix invalide. Tapez un nombre !");
+		      choixValide = false;
 			}
 		} while (choixValide == false);
 
+		testColonne(colChoix);
 
+		colEnCours = colChoix;
+		ligneEnCours = detLig();
+	}
+
+	public static void testColonne(int col) {
+		if (grille[col][nbLig-1] != 0) {
+			System.out.println("Colonne pleine recommencez");
+			choixColonne();
+		}
+	}
 		// Cette boucle va enregistrer la position du jeton dans la grille
 		// La colonne est celle indiquée par le joueur.
 		// La ligne correspondra à la première case disponible dans cette colonne.
+
+	public static int detLig() {
 		for (int i = 0; i < nbLig; i++) {
-			if (grille[colChoix][i] == 0) {
-				grille[colChoix][i] = joueurEnCours;
-				ligneEnCours = i;
-				i = nbLig;
-				colEnCours = colChoix;
+			if (grille[colEnCours][i] == 0) {
+				grille[colEnCours][i] = joueurEnCours;
+				return i;
 			}
 		}
+		return 0;
 	}
 
 
@@ -269,4 +253,27 @@ public class Puissance4 {
 		System.out.println("La grille est pleine, match nul");
 	}
 
+	public static void partieJeu() {
+		initJoueurs();
+		tirageAuSort();
+		affichageGrille();
+
+		do {
+			choixColonne();
+			affichageGrille();
+
+			if (verifHoriz() || (verifVertic()) || (verifDiag())) {
+				finPartie();
+			}
+
+			else if (verifGrillePleine()) {
+				partieNul();
+			}
+			// Les tests de vérification n'ont pas désigné de vainqueur ou une partie nulle :
+			// On change de joueur, et la partie continue
+			joueurEnCours = joueurEnCours%2 + 1;
+
+		} while (!partieFinie);
+
+	}
 }
