@@ -6,7 +6,7 @@
  */
 
 import java.util.Scanner;
-import java.util.InputMismatchException;
+
 
 public class Puissance4 {
 
@@ -75,20 +75,19 @@ public class Puissance4 {
 		boolean choixValide;
 
 		do {
-			choixValide = true;
+			choixValide = false;
 
 		    System.out.println("\n" + joueur[joueurEnCours] + " (" + jeton[joueurEnCours]
 		        + ") , veuillez choisir votre colonne : ");
 					String choix = saisie.nextLine();
 
-				if (choix.matches("[0-9]")){
+				if (choix.matches("[0-9]")) {
 					choixValide=true;
 					colChoix = Integer.parseInt(choix);
-					if (colChoix<0 || colChoix>nbCol) {
-						System.out.println("Choix invalide recommencez.");
-						choixValide = false;
-					}
-
+						if (colChoix<0 || colChoix>nbCol) {
+							System.out.println("Choix invalide recommencez.");
+							choixValide = false;
+						}
 				} else {
 					System.out.println("Choix invalide recommencez.");
 				}
