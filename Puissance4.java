@@ -5,7 +5,6 @@
  * Il peut arriver qu’aucun joueur ne parvienne à aligner 4 jetons, donnant lieu à un match nul.
  */
 
-
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
@@ -23,7 +22,6 @@ public class Puissance4 {
 
 
 	public static void main(String[] args) {
-
 		saisie = new Scanner(System.in);
 
 		partieJeu();
@@ -48,16 +46,13 @@ public class Puissance4 {
 
 
 	public static void affichageGrille() {
-
 		compteur++;
 		System.out.println("\nTOUR NUMERO " + compteur + "\n");
 
 		for (int i = nbLig - 1; i >= 0; i--) {
-
 			for (int j = 0; j < nbCol; j++) {
 				System.out.print("| " + jeton[grille[j][i]] + " ");
 			}
-
 			System.out.println("|");
 		}
 
@@ -81,19 +76,22 @@ public class Puissance4 {
 
 		do {
 			choixValide = true;
-		  try {
+
 		    System.out.println("\n" + joueur[joueurEnCours] + " (" + jeton[joueurEnCours]
 		        + ") , veuillez choisir votre colonne : ");
-		    colChoix = saisie.nextInt();
-				if (colChoix<0 || colChoix>nbCol) {
-					System.out.println("Choix invalide recommencez");
-					choixValide = false;
+					String choix = saisie.nextLine();
+
+				if (choix.matches("[0-9]")){
+					choixValide=true;
+					colChoix = Integer.parseInt(choix);
+					if (colChoix<0 || colChoix>nbCol) {
+						System.out.println("Choix invalide recommencez.");
+						choixValide = false;
+					}
+
+				} else {
+					System.out.println("Choix invalide recommencez.");
 				}
-		  } catch (InputMismatchException e) {
-		      saisie.next();
-		      System.out.println("Choix invalide. Tapez un nombre !");
-		      choixValide = false;
-			}
 		} while (choixValide == false);
 
 		testColonne(colChoix);
@@ -102,9 +100,10 @@ public class Puissance4 {
 		ligneEnCours = detLig();
 	}
 
-	public static void testColonne(int col) {
+
+	public static void testColonne(int col) { // méthode pour vérifier si la colonne est pleine.
 		if (grille[col][nbLig-1] != 0) {
-			System.out.println("Colonne pleine recommencez");
+			System.out.println("Colonne pleine recommencez.");
 			choixColonne();
 		}
 	}
@@ -112,7 +111,8 @@ public class Puissance4 {
 		// La colonne est celle indiquée par le joueur.
 		// La ligne correspondra à la première case disponible dans cette colonne.
 
-	public static int detLig() {
+
+	public static int detLig() { //détermine à quelle ligne le jeton s'arrête.
 		for (int i = 0; i < nbLig; i++) {
 			if (grille[colEnCours][i] == 0) {
 				grille[colEnCours][i] = joueurEnCours;
@@ -124,7 +124,6 @@ public class Puissance4 {
 
 
 	public static boolean verifHoriz() {
-
 		int compteurJeton = 0;
 
 		for (int i = 0; i < nbCol; i++) {
@@ -139,13 +138,11 @@ public class Puissance4 {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
 
 	public static boolean verifVertic() {
-
 		int compteurJeton = 0;
 
 		for (int i = 0; i < nbLig; i++) {
@@ -159,13 +156,11 @@ public class Puissance4 {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
 
 	public static boolean verifDiag() {
-
 		int colTest = colEnCours;
 		int ligneTest = ligneEnCours;
 		int compteurJeton = 1;
